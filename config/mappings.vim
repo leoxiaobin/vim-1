@@ -51,12 +51,12 @@ nnoremap <F4> :set wrap! wrap?<CR>
 
 "set paste
 "用F5激活/取消 paste模式，进入插入模式粘贴，代码就不会被自动缩进
-set pastetoggle=<F5>
+" set pastetoggle=<F5>
 " disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
 
-nnoremap <F6> :set mouse=a<CR>
-nnoremap <F7> :set mouse=v<CR>
+" nnoremap <F6> :set mouse=a<CR>
+" nnoremap <F7> :set mouse=v<CR>
 "kj   <Esc>，不用到角落去按esc了
 inoremap kj <Esc>
 
