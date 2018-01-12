@@ -7,9 +7,12 @@
 " 修改主题和颜色展示
 colorscheme molokai
 "colorscheme solarized
+"colorscheme default
 set background=dark
-set term=screen
+"set term=screen
 set t_Co=256
+"neovim true color
+set termguicolors
 "set background=dark
 "set t_Co=256
 
@@ -31,8 +34,8 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 set hidden "in order to switch between buffers with unsaved change
-map <c-n> :bp<cr>
-map <c-p> :bn<cr>
+map <c-n> :bn<cr>
+map <c-p> :bp<cr>
 map ,bd :bd<cr>"
 
 

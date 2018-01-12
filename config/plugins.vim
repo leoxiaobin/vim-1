@@ -85,17 +85,20 @@ let g:ycm_key_list_previous_completion=['<c-p>']
 let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_confirm_extra_conf = 0
 let g:syntastic_always_populate_loc_list = 1
-"let g:ycm_global_ycm_extra_conf="~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+" let g:ycm_global_ycm_extra_conf="~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
 let g:ycm_global_ycm_extra_conf="~/.vim/.ycm_extra_conf.py"
 let g:ycm_min_num_of_chars_for_completion=2
 let g:ycm_autoclose_preview_window_after_insertion=1
 "关闭语法检测
 let g:ycm_enable_diagnostic_signs=0
+let g:ycm_server_python_interpreter='/home/bixi/anaconda2/bin/python'
+"let g:ycm_keep_logfiles = 1
+"let g:ycm_log_level = 'debug'
 "在注释输入时也能补全
 "let g:ycm_complete_in_comments=1
 "let g:ycm_complete_in_strings=1
 "let g:ycm_collect_identifiers_from_comments_and_strings=1 "注释和字符串的文字也会收入补全
-"nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
 "Bundle 'scrooloose/syntastic'
@@ -148,18 +151,17 @@ Plugin 'rhysd/accelerated-jk'
 "快速 加减注释
 "shift+v+方向键选中(默认当前行) -> ,cs 加上注释 -> ,cu 解开注释
 Bundle 'scrooloose/nerdcommenter'
+let g:NERDSpaceDelims = 1
 
 "状态栏增强展示
-Bundle 'bling/vim-airline'
+" Bundle 'bling/vim-airline'
+Bundle 'vim-airline/vim-airline'
+Bundle 'vim-airline/vim-airline-themes'
 " --- vim-airline
-set ttimeoutlen=50
-let g:airline_left_sep = ''
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_sep = ''
-let g:airline_linecolumn_prefix = ''
-let g:airline_linecolumn_prefix = ''
-let g:airline_linecolumn_prefix = ''
+set ttimeoutlen=10
+" let g:airline_left_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_linecolumn_prefix = ''
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 0
@@ -167,25 +169,16 @@ let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#csv#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#virtualenv#enabled = 1
+
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_theme_patch_func = 'AirlineThemePatch'
-
-function! AirlineInit()
-    let g:airline_section_y = airline#section#create_right(['%v', '%l'])
-    let g:airline_section_z = airline#section#create_right(['%P', '%L'])
-endfunction
-autocmd VimEnter * call AirlineInit()
-
-function! AirlineThemePatch(palette)
-    if g:airline_theme == "wombat"
-        for colors in values(a:palette.inactive)
-            let colors[3] = 235
-        endfor
-    endif
-endfunction
-
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_powerline_fonts = 1
+" close the current buffer and move to the previous one
+nmap <leader>bq :bp <BAR> bd #<CR>
+" To open a new empty buffer
+nmap <leader>T :enew<cr>
 
 "for show no user whitespaces
 Bundle 'bronson/vim-trailing-whitespace'
@@ -193,21 +186,39 @@ map <leader><space> :FixWhitespace<cr>
 
 
 "##########语法检查##########"
-"Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/syntastic'
 let g:syntastic_error_symbol='>>'
 let g:syntastic_warning_symbol='>'
-let g:syntastic_check_on_open=1 "在打开文件的时候检查
-let g:syntastic_enable_highlighting = 0
-let g:syntastic_mode_map      = {'mode': 'active',
-            \'active_filetypes':  [],
-            \'passive_filetypes': ['html', 'css', 'xhtml', 'eruby']
-            \}
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
+let g:syntastic_enable_highlighting=1
+let g:syntastic_python_checkers=['pyflakes'] " 使用pyflakes,速度比pylint快
+let g:syntastic_javascript_checkers = ['jsl', 'jshint']
+let g:syntastic_html_checkers=['tidy', 'jshint']
+" 修改高亮的背景色, 适应主题
+highlight SyntasticErrorSign guifg=white guibg=black
+
+" to see error location list
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_loc_list_height = 5
+function! ToggleErrors()
+    let old_last_winnr = winnr('$')
+    lclose
+    if old_last_winnr == winnr('$')
+        " Nothing was closed, open syntastic error location panel
+        Errors
+    endif
+endfunction
+nnoremap <Leader>s :call ToggleErrors()<cr>
+" nnoremap <Leader>sn :lnext<cr>
+" nnoremap <Leader>sp :lprevious<cr>
 
 
 " Airline output for tmux
 Bundle 'edkolev/tmuxline.vim'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts=0
+let g:airline_powerline_fonts=1
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = 'full'
 

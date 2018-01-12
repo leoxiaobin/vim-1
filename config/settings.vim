@@ -18,7 +18,7 @@ filetype plugin indent on
 
 
 " color scheme
-"set background=dark
+set background=dark
 "set guifont=Monaco\ h9
 
 
@@ -52,7 +52,7 @@ set report=0 " always report number of lines changed "
 set wrap " do wrap lines
 set scrolloff=5 " 5 lines above/below cursor when scrolling
 set number " show line numbers
-set showmatch " 括号配对情况
+set showmatch " 括 号配对情况
 set showmode  " set showmode
 set showcmd " show typed command in status bar
 set title " show file in titlebar
@@ -68,4 +68,7 @@ set shiftwidth=4
 set expandtab
 
 set cino=:0g0t0(sus
+
+" neovim python
+let g:python_host_prog  = '/home/bixi/anaconda2/bin/python'
 

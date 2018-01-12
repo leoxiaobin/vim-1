@@ -13,7 +13,7 @@
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 "后退一个字符
-cnoremap <C-B>        <Left>
+" cnoremap <C-B>        <Left>
 " 删除光标所在的字符
 cnoremap <C-D>        <Del>
  " 前进一个字符

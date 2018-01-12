@@ -4,7 +4,7 @@
 "Email:hominlinx@gmail.com
 "=============================================
 
-let mapleader = ","
+let mapleader = ";"
 
 source ~/.vim/config/plugins.vim
 
