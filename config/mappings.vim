@@ -64,9 +64,22 @@ inoremap kj <Esc>
 nmap t o<ESC>k
 nmap T O<ESC>j
 
-"nmap <leader>t :CtrlPBufTag<CR>
-"nmap <leader>r :CtrlPMRUFiles<CR>
-"nmap <leader>f :CtrlP .<CR>
-"nmap <leader>T :CtrlPTag<CR>
-"nmap <leader>e :CtrlPBuffer<CR>
+nmap <leader>t :CtrlPBufTag<CR>
+nmap <leader>r :CtrlPMRUFiles<CR>
+nmap <leader>f :CtrlP .<CR>
+nmap <leader>T :CtrlPTag<CR>
+nmap <leader>e :CtrlPBuffer<CR>
+
+
+" Move to the previous buffer with "gp"
+nnoremap gp :bp<CR>
+
+" Move to the next buffer with "gn"
+nnoremap gn :bn<CR>
+
+" List all possible buffers with "gl"
+nnoremap gl :ls<CR>
+
+" List all possible buffers with "gb" and accept a new buffer argument [1]
+nnoremap gb :ls<CR>:b
 

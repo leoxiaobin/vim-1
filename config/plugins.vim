@@ -56,20 +56,23 @@ Bundle 'jiangmiao/auto-pairs'
 "文件搜索 建议学习一下
 "http://blog.codepiano.com/pages/ctrlp-cn.light.html#loaded_ctrlp
 Bundle 'kien/ctrlp.vim'
-let g:ctrlp_map = '<leader>p'
+let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-"set wildignore+=*/tmp/*,*.so,*.swp,*.zip " MacOSX/Linux"
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip " MacOSX/Linux"
+let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/]\.(git|hg|svn|rvm)$',
-    \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
-    \ }
-let g:ctrlp_working_path_mode=0
+	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+	\ 'file': '\v\.(exe|so|dll)$',
+	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+	\ }
+let g:ctrlp_working_path_mode='ra'
 let g:ctrlp_match_window_bottom=1
 let g:ctrlp_max_height=15
 let g:ctrlp_match_window_reversed=0
 let g:ctrlp_mruf_max=500 "指定你希望CtrlP记录的最近打开的文件历史的数目
 let g:ctrlp_follow_symlinks=1
-let g:ctrlp_max_files=100000
+" let g:ctrlp_max_files=1000
 let g:ctrlp_max_depth = 100
 
 
@@ -219,8 +222,9 @@ nnoremap <Leader>s :call ToggleErrors()<cr>
 Bundle 'edkolev/tmuxline.vim'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts=1
-let g:tmuxline_powerline_separators = 0
+let g:tmuxline_powerline_separators = 1
 let g:tmuxline_preset = 'full'
+let g:tmuxline_theme = 'jellybeans'
 
 "括号显示增强
 Bundle 'kien/rainbow_parentheses.vim'
@@ -278,6 +282,7 @@ let g:ConqueGdb_GdbExe = 'gdb' "or arm-linux-gdb
 "
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
+"
 
 Bundle 'DrawIt'
 
