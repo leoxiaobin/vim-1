@@ -117,35 +117,47 @@ let g:ycm_server_python_interpreter='/home/bixi/anaconda2/bin/python'
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
-"##########语法检查##########"
-Bundle 'scrooloose/syntastic'
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
-let g:syntastic_check_on_open=1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_loc_list_height = 5
-let g:syntastic_check_on_wq=0
-let g:syntastic_enable_highlighting=1
-let g:syntastic_python_checkers=['pyflakes'] " 使用pyflakes,速度比pylint快
-let g:syntastic_javascript_checkers = ['jsl', 'jshint']
-let g:syntastic_html_checkers=['tidy', 'jshint']
-let g:syntastic_mode_map = { 'passive_filetypes': ['scss', 'slim'] }
-" 修改高亮的背景色, 适应主题
-highlight SyntasticErrorSign guifg=white guibg=black
 
-" to see error location list
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_loc_list_height = 5
-function! ToggleErrors()
-    let old_last_winnr = winnr('$')
-    lclose
-    if old_last_winnr == winnr('$')
-        " Nothing was closed, open syntastic error location panel
-        Errors
-    endif
-endfunction
-nnoremap <Leader>s :call ToggleErrors()<cr>
+" python-mode
+Bundle 'python-mode/python-mode'
+let g:pymode_options_max_line_length = 79
+let g:pymode_options_colorcolumn = 1
+let g:pymode_python = 'python'
+let g:pymode_indent = 1
+let g:pymode_folding = 1
+let g:pymode_lint_on_fly = 1
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+nnoremap <Leader>s :PymodeLint<cr>
+
+"##########语法检查##########"
+" Bundle 'scrooloose/syntastic'
+" let g:syntastic_error_symbol = '✗'
+" let g:syntastic_warning_symbol = '⚠'
+" let g:syntastic_check_on_open=1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_loc_list_height = 5
+" let g:syntastic_check_on_wq=0
+" let g:syntastic_enable_highlighting=1
+" let g:syntastic_python_checkers=['pyflakes'] " 使用pyflakes,速度比pylint快
+" let g:syntastic_javascript_checkers = ['jsl', 'jshint']
+" let g:syntastic_html_checkers=['tidy', 'jshint']
+" let g:syntastic_mode_map = { 'passive_filetypes': ['scss', 'slim'] }
+" " 修改高亮的背景色, 适应主题
+" highlight SyntasticErrorSign guifg=white guibg=black
+" 
+" " to see error location list
+" let g:syntastic_always_populate_loc_list = 0
+" let g:syntastic_auto_loc_list = 0
+" let g:syntastic_loc_list_height = 5
+" function! ToggleErrors()
+"     let old_last_winnr = winnr('$')
+"     lclose
+"     if old_last_winnr == winnr('$')
+"         " Nothing was closed, open syntastic error location panel
+"         Errors
+"     endif
+" endfunction
+" nnoremap <Leader>s :call ToggleErrors()<cr>
 " nnoremap <Leader>sn :lnext<cr>
 " nnoremap <Leader>sp :lprevious<cr>
 
@@ -193,7 +205,7 @@ Plugin 'rhysd/accelerated-jk'
 "快速 加减注释
 "shift+v+方向键选中(默认当前行) -> ,cs 加上注释 -> ,cu 解开注释
 Bundle 'scrooloose/nerdcommenter'
-let g:NERDSpaceDelims = 1
+let g:NERDSpaceDelims = 0
 
 "状态栏增强展示
 " Bundle 'bling/vim-airline'
@@ -228,12 +240,12 @@ map <leader><space> :FixWhitespace<cr>
 
 
 " Airline output for tmux
-Bundle 'edkolev/tmuxline.vim'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts=1
-let g:tmuxline_powerline_separators = 1
-let g:tmuxline_preset = 'full'
-let g:tmuxline_theme = 'jellybeans'
+" Bundle 'edkolev/tmuxline.vim'
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline_powerline_fonts=1
+" let g:tmuxline_powerline_separators = 1
+" let g:tmuxline_preset = 'full'
+" let g:tmuxline_theme = 'jellybeans'
 
 "括号显示增强
 Bundle 'kien/rainbow_parentheses.vim'
@@ -316,34 +328,34 @@ Bundle 'kergoth/vim-bitbake'
 " indentLine
 Bundle 'Yggdroot/indentLine'
 
-" Add maktaba and codefmt to the runtimepath.
+"  Add maktaba and codefmt to the runtimepath.
 " (The latter must be installed before it can be used.)
-Plugin 'google/vim-maktaba'
-Plugin 'google/vim-codefmt'
-" Also add Glaive, which is used to configure codefmt's maktaba flags. See
-" `:help :Glaive` for usage.
-Plugin 'google/vim-glaive'
-" ...
-call vundle#end()
-" the glaive#Install() should go after the "call vundle#end()"
-call glaive#Install()
-" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
-Glaive codefmt plugin[mappings]
-" Glaive codefmt google_java_executable="java -jar /path/to/google-java-format-VERSION-all-deps.jar"
-
-augroup autoformat_settings
-  autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-  autocmd FileType dart AutoFormatBuffer dartfmt
-  autocmd FileType go AutoFormatBuffer gofmt
-  autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,json AutoFormatBuffer js-beautify
-  autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType python AutoFormatBuffer yapf
-  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
-augroup END
-nmap <F5> :FormatCode<CR>
-nmap <F6> :FormatLines<CR>
+"Plugin 'google/vim-maktaba'
+"Plugin 'google/vim-codefmt'
+"" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+"" `:help :Glaive` for usage.
+"Plugin 'google/vim-glaive'
+"" ...
+"call vundle#end()
+"" the glaive#Install() should go after the "call vundle#end()"
+"call glaive#Install()
+"" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+"Glaive codefmt plugin[mappings]
+"" Glaive codefmt google_java_executable="java -jar /path/to/google-java-format-VERSION-all-deps.jar"
+"
+"augroup autoformat_settings
+"  autocmd FileType bzl AutoFormatBuffer buildifier
+"  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+"  autocmd FileType dart AutoFormatBuffer dartfmt
+"  autocmd FileType go AutoFormatBuffer gofmt
+"  autocmd FileType gn AutoFormatBuffer gn
+"  autocmd FileType html,css,json AutoFormatBuffer js-beautify
+"  autocmd FileType java AutoFormatBuffer google-java-format
+"  autocmd FileType python AutoFormatBuffer yapf
+"  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+"augroup END
+"nmap <F5> :FormatCode<CR>
+"nmap <F6> :FormatLines<CR>
 
 " fzf.vim
 Plugin 'junegunn/fzf', { 'do': './install --all' }

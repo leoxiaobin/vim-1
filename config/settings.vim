@@ -72,3 +72,4 @@ set cino=:0g0t0(sus
 " neovim python
 let g:python_host_prog  = '/home/bixi/anaconda2/bin/python'
 
+set cc=80
